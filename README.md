@@ -90,11 +90,38 @@ You also may address the config values by a dotted string argument. So the next 
 </template>
 ````
 
+You may also address deeper elements as normal objects. Let's imaging you have the following `settings.json`
+
+````
+{
+  "public": {
+    "application": {
+      "version": "1.0",
+      "author": {
+        name: "My Name",
+        email: "mail-address"
+      }
+    }
+  }
+}
+````
+
+then you can get those element values in your templates by
+
+````
+<template "mytemplate">
+  {{#if pubSettings.application.author}}
+    <span>{{pubSettings.application.author.name}}</span>
+    <span>{{pubSettings 'application.author.email'}}</span>
+  {{/if}}
+</template>
+````
+
 ### Extended usage
 
 For a more sophiticated usage, you even may pass another expression to get the name of the config value to show.
 
-The following example will return either the about_info or the version whatever the bool expression of _foo_ is:
+The following example will return either the value for `about_info` or `version` whatever the bool expression of _foo_ is:
 
 *mytemplate.html*:
 
@@ -114,7 +141,7 @@ Template.mytemplate.helpers({
 
 ### Additional Packages
 
-If you are looking for an easy and highly flexible configuration management based on the NODE_ENV environment, you should have a look at the `4commerce:env-settings` pakage.
+If you are looking for an easy and highly flexible configuration management based on the NODE_ENV environment, you should have a look at the `4commerce:env-settings` package.
 
 See: https://github.com/4commerce-technologies-AG/meteor-package-env-settings
 
